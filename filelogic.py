@@ -1,15 +1,19 @@
 import xml.etree.ElementTree as ET  
-tree = ET.parse('0201 Birth dates.xdo')
-root = tree.getroot()
-'''
-for item in root.iterfind('./{http://xmlns.oracle.com/oxp/xmlp}parameters//'):
-    print('ITEM TAG:: {}, ITEM KEYS:: {} ITEM ITEMS:: {} ITEM TEXT:: {} '.format(item.tag, item.keys(), item.items(), item.text))
 
+def templates_list(file_pointer):
+	tree = ET.parse(file_pointer)
+	root = tree.getroot()
+	for template_label in root.iterfind('./{http://xmlns.oracle.com/oxp/xmlp}templates//'):
+		label = template_label.attrib
+		print (label.get('label'))
 
-for item in root.iterfind('./{http://xmlns.oracle.com/oxp/xmlp}templates//'):
-    print('ITEM ITEMS: {}'.format(item.items()))
-'''
-#def templates_list(filename):
-for template_label in root.iterfind('./{http://xmlns.oracle.com/oxp/xmlp}templates//'):
-	label = template_label.attrib
-	print (label['label'])
+def parameters_list(file_pointer):
+	tree = ET.parse(file_pointer)
+	root = tree.getroot()
+	for template_param in root.iterfind('./{http://xmlns.oracle.com/oxp/xmlp}parameters//'):
+		label = template_param.attrib
+		if 'label' in label:
+			param_lable = label.get('label')
+			print (param_lable)
+		else:
+			pass
