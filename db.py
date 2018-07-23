@@ -58,6 +58,31 @@ class Parameters(Base):
 	def __repr__(self):
 		return '<Parameters list for report {}>'.format(self.report_id)
 
+class templ_strings(Base):
+	__tablename__ = 'template_strings'
+	id = Column(Integer, primary_key=True)
+	report_id = Column(Integer)
+	template_id = Column(Integer)
+	lang_id = Column(Integer)
+	data = Column(String(100))
+	created = Column(TIMESTAMP, nullable=False)
+	updated = Column(TIMESTAMP, nullable=False)
+
+	def __repr__(self):
+		return '<Template strings list for report {}>'.format(self.report_id)
+
+class param_strings(Base):
+	__tablename__ = 'parameters_strings'
+	id = Column(Integer, primary_key=True)
+	report_id = Column(Integer)
+	param_id = Column(Integer)
+	lang_id = Column(Integer)
+	data = Column(String(100))
+	created = Column(TIMESTAMP, nullable=False)
+	updated = Column(TIMESTAMP, nullable=False)
+
+	def __repr__(self):
+		return '<Template strings list for report {}>'.format(self.report_id)
 
 if __name__ == "__main__":
 	Base.metadata.create_all(bind=engine)
