@@ -1,19 +1,9 @@
-import xml.etree.ElementTree as ET  
+import os,fnmatch
+import fnmatch
 
-def templates_list(file_pointer):
-	tree = ET.parse(file_pointer)
-	root = tree.getroot()
-	for template_label in root.iterfind('./{http://xmlns.oracle.com/oxp/xmlp}templates//'):
-		label = template_label.attrib
-		print (label.get('label'))
+exlist = ['*.xdo']
 
-def parameters_list(file_pointer):
-	tree = ET.parse(file_pointer)
-	root = tree.getroot()
-	for template_param in root.iterfind('./{http://xmlns.oracle.com/oxp/xmlp}parameters//'):
-		label = template_param.attrib
-		if 'label' in label:
-			param_lable = label.get('label')
-			print (param_lable)
-		else:
-			pass
+for root, directories, filenames in os.walk('./original/'):
+    for extensions in exlist:
+        for filename in fnmatch.filter(filenames, extensions):
+            print(os.path.join(root, filename))
