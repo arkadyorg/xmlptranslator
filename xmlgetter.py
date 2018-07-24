@@ -21,4 +21,4 @@ def parameters_list(file_pointer):
 def report_title(file_pointer):
 	tree = ET.parse(file_pointer)
 	root = tree.getroot()
-	print(root[0].text)
+	return (root[0].text)

@@ -11,11 +11,11 @@ Base.query = db_session.query_property()
 class Reports(Base): 
     __tablename__ = 'reports'
     id = Column(Integer, primary_key=True)
-    report_name = Column(String(100))
-    report_dir = Column(String(300))
-    file_name = Column(String(100))
-    default_template = Column(String(100))
-    base_lang = Column(String(100))
+    report_name = Column(String(100)) #title
+    report_dir = Column(String(300)) #without end file
+    file_name = Column(String(100)) #full filename
+    #default_template = Column(String(100)) 
+    #base_lang = Column(String(100))
     created = Column(TIMESTAMP, nullable=False)
     updated = Column(TIMESTAMP, nullable=False)
 
