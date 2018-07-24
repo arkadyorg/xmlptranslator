@@ -17,3 +17,8 @@ def parameters_list(file_pointer):
 			print (param_lable)
 		else:
 			pass
+
+def report_title(file_pointer):
+	tree = ET.parse(file_pointer)
+	root = tree.getroot()
+	print(root[0].text)
