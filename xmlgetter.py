@@ -22,3 +22,14 @@ def report_title(file_pointer):
 	tree = ET.parse(file_pointer)
 	root = tree.getroot()
 	return (root[0].text)
+
+def template_lister(file_pointer):
+	tree = ET.parse(file_pointer)
+	root = tree.getroot()
+	for template_label in root.iterfind('./{http://xmlns.oracle.com/oxp/xmlp}templates//'):
+		label = template_label.attrib
+		p = label.get('label')[-2:]
+		print (label.get('label'))
+		print (label.get('type'))
+		print (label.get('url'))
+		print (p.upper())
