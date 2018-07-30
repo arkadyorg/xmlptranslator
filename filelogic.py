@@ -1,5 +1,6 @@
 import os, fnmatch, collections 
-from dblogic import report_reindex
+from dblogic import report_reindex, report_filepointer_select, template_reindex
+from xmlgetter import template_lister
 
 
 
@@ -15,4 +16,8 @@ def report_reindex_igniter():
 				report_reindex(title, report_directory, file_name)
 
 def template_reindex_igniter():
-	
+	filepointers = report_filepointer_select()
+	for key, value in filepointers.items():
+		template_result = template_lister(key,value)
+		print(template_result['td_report_id'], template_result['td_template_label'], template_result['td_template_type'], template_result['td_template_url'], template_result['td_template_lang'])
+	print('ok')

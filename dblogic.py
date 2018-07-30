@@ -14,9 +14,12 @@ def report_reindex(r_name,r_dir,r_file):
 
 def template_reindex(rep_id,t_label,t_type,t_url,t_lang):
 	template_item=Reports(report_id=rep_id, template_label=t_label, template_type=t_type, template_url=t_url, template_lang=t_lang, created=datetime.now(), updated=datetime.now())
-	db_session.add(report_item)
+	db_session.add(template_item)
 	db_session.commit()
 
 def report_filepointer_select():
+	pointers_list = {}
 	for instance in Reports.query.order_by(Reports.id): 
-		print (instance.report_dir +'/'+ instance.file_name)
+		#print (str(instance.id) +':'+ instance.report_dir +'/'+ instance.file_name)
+		pointers_list[instance.id] = (instance.report_dir +'/'+ instance.file_name)
+	return pointers_list
