@@ -20,6 +20,5 @@ def template_reindex(rep_id,t_label,t_type,t_url,t_lang):
 def report_filepointer_select():
 	pointers_list = {}
 	for instance in Reports.query.order_by(Reports.id): 
-		#print (str(instance.id) +':'+ instance.report_dir +'/'+ instance.file_name)
 		pointers_list[instance.id] = (instance.report_dir +'/'+ instance.file_name)
 	return pointers_list
