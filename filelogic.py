@@ -19,5 +19,5 @@ def template_reindex_igniter():
 	filepointers = report_filepointer_select()
 	for key, value in filepointers.items():
 		template_result = template_lister(key,value)
-		print(template_result['td_report_id'], template_result['td_template_label'], template_result['td_template_type'], template_result['td_template_url'], template_result['td_template_lang'])
-	print('ok')
+		for template_entries in template_result:
+			template_reindex(template_entries['td_report_id'], template_entries['td_template_label'], template_entries['td_template_type'], template_entries['td_template_url'], template_entries['td_template_lang'])

@@ -1,4 +1,4 @@
-from db import db_session, Reports
+from db import db_session, Reports, Templates
 from datetime import datetime
 import xml.etree.ElementTree as ET
 
@@ -13,7 +13,7 @@ def report_reindex(r_name,r_dir,r_file):
 		pass
 
 def template_reindex(rep_id,t_label,t_type,t_url,t_lang):
-	template_item=Reports(report_id=rep_id, template_label=t_label, template_type=t_type, template_url=t_url, template_lang=t_lang, created=datetime.now(), updated=datetime.now())
+	template_item=Templates(report_id=rep_id, template_label=t_label, template_type=t_type, template_url=t_url, template_lang=t_lang, created=datetime.now(), updated=datetime.now())
 	db_session.add(template_item)
 	db_session.commit()
 
