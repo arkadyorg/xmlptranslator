@@ -13,9 +13,13 @@ def report_reindex(r_name,r_dir,r_file):
 		pass
 
 def template_reindex(rep_id,t_label,t_type,t_url,t_lang):
-	template_item=Templates(report_id=rep_id, template_label=t_label, template_type=t_type, template_url=t_url, template_lang=t_lang, created=datetime.now(), updated=datetime.now())
-	db_session.add(template_item)
-	db_session.commit()
+	exists = db_session.query(Templates.template_label).filter_by(template_label=t_label).scalar() is not None
+	if exists == False:	
+		template_item=Templates(report_id=rep_id, template_label=t_label, template_type=t_type, template_url=t_url, template_lang=t_lang, created=datetime.now(), updated=datetime.now())
+		db_session.add(template_item)
+		db_session.commit()
+	else:
+		pass
 
 def report_filepointer_select():
 	pointers_list = {}
