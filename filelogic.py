@@ -1,6 +1,6 @@
 import os, fnmatch, collections 
-from dblogic import report_reindex, report_filepointer_select, template_reindex
-from xmlgetter import template_lister
+from dblogic import report_reindex, report_filepointer_select, template_reindex, parameters_reindex
+from xmlgetter import template_lister, parameters_lister
 
 
 
@@ -21,3 +21,10 @@ def template_reindex_igniter():
 		template_result = template_lister(key,value)
 		for template_entries in template_result:
 			template_reindex(template_entries['td_report_id'], template_entries['td_template_label'], template_entries['td_template_type'], template_entries['td_template_url'], template_entries['td_template_lang'])
+
+def parameters_reindex_igniter():
+	filepointers = report_filepointer_select()
+	for key, value in filepointers.items():
+		parameters_result = parameters_lister(key,value)
+		for parameters_entries in parameters_result:
+			parameters_reindex(parameters_entries['pl_report_id'], parameters_entries['pl_param_id'], parameters_entries['pl_param_lable'])

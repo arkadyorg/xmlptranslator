@@ -51,7 +51,8 @@ class Parameters(Base):
 	__tablename__ = 'parameters_list'
 	id = Column(Integer, primary_key=True)
 	report_id = Column(Integer)
-	base_label = Column(String(100))
+	parameter_id = Column(String(100))
+	parameter_label = Column(String(100))
 	created = Column(TIMESTAMP, nullable=False)
 	updated = Column(TIMESTAMP, nullable=False)
 

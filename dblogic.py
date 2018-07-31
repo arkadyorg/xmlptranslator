@@ -1,4 +1,4 @@
-from db import db_session, Reports, Templates
+from db import db_session, Reports, Templates, Parameters
 from datetime import datetime
 import xml.etree.ElementTree as ET
 
@@ -20,6 +20,11 @@ def template_reindex(rep_id,t_label,t_type,t_url,t_lang):
 		db_session.commit()
 	else:
 		pass
+
+def parameters_reindex(rep_id, param_id, param_lable):
+	parameter_item=Parameters(report_id=rep_id, parameter_id=param_id, parameter_label=param_lable, created=datetime.now(), updated=datetime.now())
+	db_session.add(parameter_item)
+	db_session.commit()
 
 def report_filepointer_select():
 	pointers_list = {}
