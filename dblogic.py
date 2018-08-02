@@ -22,9 +22,15 @@ def template_reindex(rep_id,t_label,t_type,t_url,t_lang):
 		pass
 
 def parameters_reindex(rep_id, param_id, param_lable):
-	parameter_item=Parameters(report_id=rep_id, parameter_id=param_id, parameter_label=param_lable, created=datetime.now(), updated=datetime.now())
-	db_session.add(parameter_item)
-	db_session.commit()
+	exists = db_session.query(Parameters).filter_by(report_id=rep_id, parameter_id=param_id).scalar() is not None
+	if exists == False:
+		parameter_item=Parameters(report_id=rep_id, parameter_id=param_id, parameter_label=param_lable, created=datetime.now(), updated=datetime.now())
+		db_session.add(parameter_item)
+		db_session.commit()
+		print('commt')
+	else:
+		print('pass')
+		pass	
 
 def report_filepointer_select():
 	pointers_list = {}
