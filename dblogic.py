@@ -34,9 +34,13 @@ def parameters_reindex(rep_id, param_id, param_lable):
 		pass	
 
 def language_add(l_locale, l_name, l_code):
-	language_entry=Languages(locale=l_locale, name=l_name, code=l_code, created=datetime.now(), updated=datetime.now())
-	db_session.add(language_entry)
-	db_session.commit()
+	exists = db_session.query(Languages.locale).filter_by(locale=l_locale).scalar() is not None
+	if exists == False:
+		language_entry=Languages(locale=l_locale, name=l_name, code=l_code, created=datetime.now(), updated=datetime.now())
+		db_session.add(language_entry)
+		db_session.commit()
+	else:
+		pass
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #	Read functions
