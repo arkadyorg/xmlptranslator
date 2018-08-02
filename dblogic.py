@@ -1,7 +1,10 @@
-from db import db_session, Reports, Templates, Parameters
+from db import db_session, Reports, Templates, Parameters, Languages
 from datetime import datetime
 import xml.etree.ElementTree as ET
 
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#	Commit functions
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 def report_reindex(r_name,r_dir,r_file):
 	exists = db_session.query(Reports.report_name).filter_by(report_name=r_name).scalar() is not None
@@ -27,10 +30,17 @@ def parameters_reindex(rep_id, param_id, param_lable):
 		parameter_item=Parameters(report_id=rep_id, parameter_id=param_id, parameter_label=param_lable, created=datetime.now(), updated=datetime.now())
 		db_session.add(parameter_item)
 		db_session.commit()
-		print('commt')
 	else:
-		print('pass')
 		pass	
+
+def language_add(l_locale, l_name, l_code):
+	language_entry=Languages(locale=l_locale, name=l_name, code=l_code, created=datetime.now(), updated=datetime.now())
+	db_session.add(language_entry)
+	db_session.commit()
+
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#	Read functions
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 def report_filepointer_select():
 	pointers_list = {}
