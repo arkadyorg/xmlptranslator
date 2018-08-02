@@ -26,6 +26,7 @@ class Languages(Base):
 	__tablename__ = 'language_list'
 	id = Column(Integer, primary_key=True)
 	locale = Column(String(100))
+	name = Column(String(100))
 	code = Column(String(100))
 	created = Column(TIMESTAMP, nullable=False)
 	updated = Column(TIMESTAMP, nullable=False)
