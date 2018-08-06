@@ -1,4 +1,4 @@
-from db import db_session, Reports, Templates, Parameters, Languages
+from db import db_session, Reports, Templates, Parameters, Languages, report_strings
 from datetime import datetime
 import xml.etree.ElementTree as ET
 
@@ -41,6 +41,13 @@ def language_add(l_locale, l_name, l_code):
 		db_session.commit()
 	else:
 		pass
+
+def reports_name_strings_reindex(r_id,l_id):
+	report_local_name=report_strings(report_id=r_id, lang_id=l_id, created=datetime.now(), updated=datetime.now())
+	db_session.add(report_local_name)
+	db_session.commit()
+
+
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #	Read functions

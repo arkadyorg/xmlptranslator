@@ -28,3 +28,6 @@ def parameters_reindex_igniter():
 		parameters_result = parameters_lister(key,value)
 		for parameters_entries in parameters_result:
 			parameters_reindex(parameters_entries['pl_report_id'], parameters_entries['pl_param_id'], parameters_entries['pl_param_lable'])
+
+def reportnames_reindex_igniter():
+	
