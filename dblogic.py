@@ -43,9 +43,13 @@ def language_add(l_locale, l_name, l_code):
 		pass
 
 def reports_name_strings_reindex(r_id,l_id):
-	report_local_name=report_strings(report_id=r_id, lang_id=l_id, created=datetime.now(), updated=datetime.now())
-	db_session.add(report_local_name)
-	db_session.commit()
+	exists = db_session.query(report_strings).filter_by(report_id=r_id, lang_id=l_id).scalar() is not None
+	if exists == False:
+		report_local_name=report_strings(report_id=r_id, lang_id=l_id, created=datetime.now(), updated=datetime.now())
+		db_session.add(report_local_name)
+		db_session.commit()
+	else:
+		pass
 
 
 
