@@ -52,10 +52,13 @@ def reports_name_strings_reindex(r_id,l_id):
 		pass
 
 def parameters_lable_strings_reindex(p_id,l_id):
-	parameter_local_name=param_strings(param_id=p_id, lang_id=l_id, created=datetime.now(), updated=datetime.now())
-	db_session.add(parameter_local_name)
-	db_session.commit()
-
+	exists = db_session.query(param_strings).filter_by(param_id=p_id, lang_id=l_id).scalar() is not None
+	if exists == False:
+		parameter_local_name=param_strings(param_id=p_id, lang_id=l_id, created=datetime.now(), updated=datetime.now())
+		db_session.add(parameter_local_name)
+		db_session.commit()
+	else:
+		pass
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #	Read functions
