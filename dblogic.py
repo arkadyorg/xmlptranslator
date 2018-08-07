@@ -1,4 +1,4 @@
-from db import db_session, Reports, Templates, Parameters, Languages, report_strings, param_strings
+from db import db_session, Reports, Templates, Parameters, Languages, report_strings, param_strings, templ_strings
 from datetime import datetime
 import xml.etree.ElementTree as ET
 
@@ -59,6 +59,12 @@ def parameters_lable_strings_reindex(p_id,l_id):
 		db_session.commit()
 	else:
 		pass
+
+def templates_lable_strings_reindex(t_id, l_id):
+	template_local_name=templ_strings(template_id=t_id, lang_id=l_id, created=datetime.now(), updated=datetime.now())
+	db_session.add(template_local_name)
+	db_session.commit()
+
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #	Read functions

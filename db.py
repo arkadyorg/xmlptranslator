@@ -63,7 +63,6 @@ class Parameters(Base):
 class templ_strings(Base):
 	__tablename__ = 'template_strings'
 	id = Column(Integer, primary_key=True)
-	report_id = Column(Integer)
 	template_id = Column(Integer)
 	lang_id = Column(Integer)
 	data = Column(String(100))
