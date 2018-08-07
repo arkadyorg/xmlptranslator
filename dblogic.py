@@ -61,10 +61,13 @@ def parameters_lable_strings_reindex(p_id,l_id):
 		pass
 
 def templates_lable_strings_reindex(t_id, l_id):
-	template_local_name=templ_strings(template_id=t_id, lang_id=l_id, created=datetime.now(), updated=datetime.now())
-	db_session.add(template_local_name)
-	db_session.commit()
-
+	exists = db_session.query(templ_strings).filter_by(template_id=t_id, lang_id=l_id).scalar() is not None
+	if exists == False:
+		template_local_name=templ_strings(template_id=t_id, lang_id=l_id, created=datetime.now(), updated=datetime.now())
+		db_session.add(template_local_name)
+		db_session.commit()
+	else:
+		pass
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #	Read functions
