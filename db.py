@@ -76,7 +76,6 @@ class templ_strings(Base):
 class param_strings(Base):
 	__tablename__ = 'parameters_strings'
 	id = Column(Integer, primary_key=True)
-	report_id = Column(Integer)
 	param_id = Column(Integer)
 	lang_id = Column(Integer)
 	data = Column(String(100))

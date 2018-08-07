@@ -1,4 +1,4 @@
-from db import db_session, Reports, Templates, Parameters, Languages, report_strings
+from db import db_session, Reports, Templates, Parameters, Languages, report_strings, param_strings
 from datetime import datetime
 import xml.etree.ElementTree as ET
 
@@ -51,6 +51,10 @@ def reports_name_strings_reindex(r_id,l_id):
 	else:
 		pass
 
+def parameters_lable_strings_reindex(p_id,l_id):
+	parameter_local_name=param_strings(param_id=p_id, lang_id=l_id, created=datetime.now(), updated=datetime.now())
+	db_session.add(parameter_local_name)
+	db_session.commit()
 
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
