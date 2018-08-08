@@ -78,3 +78,9 @@ def report_filepointer_select():
 	for instance in Reports.query.order_by(Reports.id): 
 		pointers_list[instance.id] = (instance.report_dir +'/'+ instance.file_name)
 	return pointers_list
+
+def language_list():
+	language_list = {}
+	for instance in Languages.query.order_by(Languages.id): 
+		language_list[instance.code] = (instance.name)
+	return language_list
