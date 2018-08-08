@@ -14,5 +14,9 @@ def config():
 def about():
 	return "About page"
 
+@app.route("/language/<lang_code>")
+def reports_by_lang(lang_code):
+	return 'Language %s' % lang_code
+
 if __name__ == "__main__":
-	app.run()
+	app.run(port=1234, debug=True)
