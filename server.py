@@ -8,7 +8,9 @@ def index():
 	result = language_list()
 	names =''
 	for langname in result:
-		names =  names + langname['name']
+		#names =  names + langname['name']
+		#<p><a href="url">link text</a></p>
+		names = names + '<p><a href="/language/' + langname['code'] + '">'+ langname['name']  +'</a></p>'
 	return str(names)
 
 @app.route("/config")
