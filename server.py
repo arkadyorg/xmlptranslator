@@ -1,10 +1,12 @@
 from flask import Flask
+from dblogic import language_list
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-	return "Index page"
+	result = language_list()
+	return str(result)
 
 @app.route("/config")
 def config():

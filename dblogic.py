@@ -80,7 +80,8 @@ def report_filepointer_select():
 	return pointers_list
 
 def language_list():
-	language_list = {}
-	for instance in Languages.query.order_by(Languages.id): 
-		language_list[instance.code] = (instance.name)
+	language_list = []
+	for instance in Languages.query.order_by(Languages.id):
+		language_list.append({'code':instance.code, 'name':instance.name})
+		#language_list[instance.code] = (instance.name)
 	return language_list
