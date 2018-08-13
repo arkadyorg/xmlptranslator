@@ -1,15 +1,13 @@
 from flask import Flask
-from dblogic import language_list
+from dblogic import language_list, report_list
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
 	result = language_list()
-	names =''
+	names = ''
 	for langname in result:
-		#names =  names + langname['name']
-		#<p><a href="url">link text</a></p>
 		names = names + '<p><a href="/language/' + langname['code'] + '">'+ langname['name']  +'</a></p>'
 	return str(names)
 
@@ -23,7 +21,11 @@ def about():
 
 @app.route("/language/<lang_code>")
 def reports_by_lang(lang_code):
-	return 'Language %s' % lang_code
+	result = report_list()
+	names = ''
+	for repname in result:
+		names = names + '<p>' + repname['name'] + '</p>'
+	return str(names)
 
 if __name__ == "__main__":
 	app.run(port=1234, debug=True)
