@@ -83,5 +83,10 @@ def language_list():
 	language_list = []
 	for instance in Languages.query.order_by(Languages.id):
 		language_list.append({'code':instance.code, 'name':instance.name})
-		#language_list[instance.code] = (instance.name)
 	return language_list
+
+def report_list():
+	report_list = []
+	for instance in Reports.query.order_by(Reports.report_name):
+		report_list.append({'name':instance.name})
+	return report_list
