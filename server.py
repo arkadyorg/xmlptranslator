@@ -6,7 +6,10 @@ app = Flask(__name__)
 @app.route("/")
 def index():
 	result = language_list()
-	return str(result)
+	names =''
+	for langname in result:
+		names =  names + langname['name']
+	return str(names)
 
 @app.route("/config")
 def config():
