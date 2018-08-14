@@ -19,13 +19,13 @@ def about():
 @app.route("/language/<lang_code>")
 def reports_by_lang(lang_code):
 	result = report_list()
-	
+	'''
 	names = ''
 	for repname in result:
 		names = names + '<p>' + repname['name'] + '</p>'
 	return str(names)
-	
-	#return render_template('index.html', languages=result)
+	'''
+	return render_template('reportconfig.html', reports=result, language=lang_code)
 
 if __name__ == "__main__":
 	app.run(port=1234, debug=True)
