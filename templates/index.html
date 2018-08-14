@@ -14,21 +14,18 @@
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
 
   </head>
-
+  
   <body>
     {%include "navigation.html" ignore missing %}
-
-
     <!-- Page Content -->
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
           <h1 class="mt-5">J.A.R.P Welcomes you!</h1>
-          <p class="lead">Basic template on TB4</p>
-          <ul class="list-unstyled">
-            <li>Bootstrap 4.1.3</li>
-            <li>jQuery 3.3.1</li>
-          </ul>
+          <p class="lead">Here are the languages I know:</p>
+          {% for langname in languages%}
+          <a class="btn btn-outline-primary btn-lg" href="/language/{{ langname.code }}" role="button">{{ langname.name }}</a>
+          {% endfor %}          
         </div>
       </div>
     </div>
