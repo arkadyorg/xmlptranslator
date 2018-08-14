@@ -5,11 +5,15 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
+	'''
 	result = language_list()
 	names = ''
 	for langname in result:
 		names = names + '<p><a href="/language/' + langname['code'] + '">'+ langname['name']  +'</a></p>'
 	return str(names)
+	'''
+	return render_template('index.html')
+
 
 @app.route("/config")
 def config():
