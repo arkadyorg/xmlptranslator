@@ -88,5 +88,5 @@ def language_list():
 def report_list():
 	report_list = []
 	for instance in Reports.query.order_by(Reports.report_name):
-		report_list.append({'name':instance.report_name})
+		report_list.append({'id':instance.id, 'name':instance.report_name})
 	return report_list
