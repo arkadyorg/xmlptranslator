@@ -34,7 +34,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="/language/{{ language }}/{{ r.id }}">
                   <span data-feather="file-text"></span>
-                  {{ r.name }}
+                  {{ r.name }}<span class="badge badge-pill badge-danger"> 4</span>
                 </a>
               </li>
               {% endfor %}
@@ -44,7 +44,7 @@
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <h1 class="h2">Local report name</h1>
+          <h1 class="h2">Local report name<span class="badge badge-pill badge-danger">1</span></h1>
             <form>
               <div class="form-group">
               <label for="exampleInputEmail1">Local report name</label>
@@ -98,7 +98,6 @@
       </label>
     </div>
   </div>
-  <button type="submit" class="btn btn-primary">Sign in</button>
 </form>
 
           <h2>Default template</h2>
@@ -121,7 +120,8 @@
                 Disabled radio
               </label>
             </div>
-
+</br>
+<button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button>
         </main>
       </div>
     </div>
