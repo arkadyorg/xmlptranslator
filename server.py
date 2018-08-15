@@ -19,7 +19,7 @@ def about():
 @app.route("/language/<lang_code>")
 def reports_by_lang(lang_code):
 	result = report_list()
-	return render_template('reportconfig.html', reports=result, language=lang_code)
+	return render_template('reportlist.html', reports=result, language=lang_code)
 
 @app.route("/language/<lang_code>/<id>")
 def report_edit(lang_code, id):
