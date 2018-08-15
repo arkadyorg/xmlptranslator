@@ -23,7 +23,9 @@ def reports_by_lang(lang_code):
 
 @app.route("/language/<lang_code>/<id>")
 def report_edit(lang_code, id):
-	return "Oh hi page"
+	result = report_list()
+	#return "Oh hi page"
+	return render_template('reportconfig.html', reports=result, language=lang_code)
 
 if __name__ == "__main__":
 	app.run(port=12345, debug=True)
