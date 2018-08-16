@@ -96,16 +96,23 @@ def report_edit_data_list(report_id, lang_code):
 	report_data['Report']={}
 	report_data['Parameters']={}
 	report_data['Templates']={}
-	report_n = ''
-	lang_i = ''
-	report_loc =''
+	report_n = '' 	# report name
+	lang_i = ''		# language number
+	report_loc =''	# report localisation name id
 	for instance in db_session.query(Reports).filter(Reports.id == report_id):
-		report_n = instance.report_name
+		report_n = instance.report_name 
 	for instance in db_session.query(Languages).filter(Languages.code == lang_code):
 		lang_i = instance.id
-	for instance in db_session.query(report_strings).filter(report_strings.report_id == report_id, report_strings.lang_id == lang_i):
-		report_loc = instance.id
-	report_data['Report']['report_name'] = report_n
+	#for instance in db_session.query(report_strings).filter(report_strings.report_id == report_id, report_strings.lang_id == lang_i):
+	#	report_loc = instance.id
+	qa=db_session.query(Reports,report_strings).filter(Reports.id == report_id, Reports.id == report_strings.report_id, report_strings.lang_id == lang_i).all()
+	for report_name_data in qa:
+		report_data['Report'][report_name_data.Reports.report_name] = report_name_data.report_strings.local_name
+
+	qa=db_session.query(Parameters,param_strings).filter(Parameters.report_id == report_id, Parameters.id == param_strings.param_id, param_strings.lang_id==lang_i).all()
+	for paramdata in qa:
+		report_data['Parameters'][paramdata.Parameters.parameter_label] = paramdata.param_strings.data
+
 	return report_data
 
 
