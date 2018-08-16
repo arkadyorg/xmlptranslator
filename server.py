@@ -27,7 +27,8 @@ def report_edit(lang_code, id):
 	report_data = report_edit_data_list(id, lang_code)
 	base_name = report_data['Report']['base name']
 	translated_name = report_data['Report']['translated name']
-	return render_template('reportconfig.html', reports=reports_list, language=lang_code, id=id, report_data=report_data, base_name=base_name, translated_name=translated_name )
+	params = report_data['Parameters']
+	return render_template('reportconfig.html', reports=reports_list, language=lang_code, id=id, report_data=report_data, base_name=base_name, translated_name=translated_name, paramlist=params)
 
 if __name__ == "__main__":
 	app.run(port=1111, debug=True)

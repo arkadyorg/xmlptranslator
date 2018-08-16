@@ -108,11 +108,11 @@ def report_edit_data_list(report_id, lang_code):
 	for report_name_data in qa:
 		report_data['Report']['base name'] = report_name_data.Reports.report_name
 		report_data['Report']['translated name'] = report_name_data.report_strings.local_name
-		#report_data['Report'][report_name_data.Reports.report_name] = report_name_data.report_strings.local_name
 
 	qa=db_session.query(Parameters,param_strings).filter(Parameters.report_id == report_id, Parameters.id == param_strings.param_id, param_strings.lang_id==lang_i).all()
 	for paramdata in qa:
-		report_data['Parameters'][paramdata.Parameters.parameter_label] = paramdata.param_strings.data
+		report_data['Parameters']['base_name'] = paramdata.Parameters.parameter_label
+		report_data['Parameters']['translated_name'] = paramdata.param_strings.data
 
 	qa=db_session.query(Templates).filter(Templates.report_id == report_id).all()
 	for tlist in qa:
