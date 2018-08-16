@@ -103,11 +103,12 @@ def report_edit_data_list(report_id, lang_code):
 		report_n = instance.report_name 
 	for instance in db_session.query(Languages).filter(Languages.code == lang_code):
 		lang_i = instance.id
-	#for instance in db_session.query(report_strings).filter(report_strings.report_id == report_id, report_strings.lang_id == lang_i):
-	#	report_loc = instance.id
+
 	qa=db_session.query(Reports,report_strings).filter(Reports.id == report_id, Reports.id == report_strings.report_id, report_strings.lang_id == lang_i).all()
 	for report_name_data in qa:
-		report_data['Report'][report_name_data.Reports.report_name] = report_name_data.report_strings.local_name
+		report_data['Report']['base name'] = report_name_data.Reports.report_name
+		report_data['Report']['translated name'] = report_name_data.report_strings.local_name
+		#report_data['Report'][report_name_data.Reports.report_name] = report_name_data.report_strings.local_name
 
 	qa=db_session.query(Parameters,param_strings).filter(Parameters.report_id == report_id, Parameters.id == param_strings.param_id, param_strings.lang_id==lang_i).all()
 	for paramdata in qa:
@@ -116,6 +117,7 @@ def report_edit_data_list(report_id, lang_code):
 	qa=db_session.query(Templates).filter(Templates.report_id == report_id).all()
 	for tlist in qa:
 		report_data['Templates'][tlist.template_lang] = tlist.template_label
+
 	return report_data
 
 
