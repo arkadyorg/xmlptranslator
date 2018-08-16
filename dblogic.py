@@ -90,3 +90,19 @@ def report_list():
 	for instance in Reports.query.order_by(Reports.report_name):
 		report_list.append({'id':instance.id, 'name':instance.report_name})
 	return report_list
+
+def report_edit_data_list(report_id, lang_code):
+	report_data = {}
+	report_n = ''
+	lang_i = ''
+	report_loc =''
+	for instance in db_session.query(Reports).filter(Reports.id == report_id):
+		report_n = instance.report_name
+	for instance in db_session.query(Languages).filter(Languages.code == lang_code):
+		lang_i = instance.id
+	for instance in db_session.query(report_strings).filter(report_strings.report_id == report_id, report_strings.lang_id == lang_i):
+		report_loc = instance.id
+	report_data['report_name'] = report_n
+	return report_data
+
+
