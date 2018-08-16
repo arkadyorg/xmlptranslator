@@ -113,6 +113,9 @@ def report_edit_data_list(report_id, lang_code):
 	for paramdata in qa:
 		report_data['Parameters'][paramdata.Parameters.parameter_label] = paramdata.param_strings.data
 
+	qa=db_session.query(Templates).filter(Templates.report_id == report_id).all()
+	for tlist in qa:
+		report_data['Templates'][tlist.template_lang] = tlist.template_label
 	return report_data
 
 
