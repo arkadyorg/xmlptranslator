@@ -93,6 +93,9 @@ def report_list():
 
 def report_edit_data_list(report_id, lang_code):
 	report_data = {}
+	report_data['Report']={}
+	report_data['Parameters']={}
+	report_data['Templates']={}
 	report_n = ''
 	lang_i = ''
 	report_loc =''
@@ -102,7 +105,7 @@ def report_edit_data_list(report_id, lang_code):
 		lang_i = instance.id
 	for instance in db_session.query(report_strings).filter(report_strings.report_id == report_id, report_strings.lang_id == lang_i):
 		report_loc = instance.id
-	report_data['report_name'] = report_n
+	report_data['Report']['report_name'] = report_n
 	return report_data
 
 
