@@ -47,48 +47,35 @@
           <h1 class="h2">Local report name  <span class="badge badge-pill badge-danger">1</span></h1>
             <form>
               <div class="form-group">
-              <label for="exampleInputEmail1">Local report name for <b>{{ base_name }}</b> </label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{ translated_name }}">
+              <label for="exampleInputEmail1">Local report name for <b>{% for r in report_name%} {{ r.base_name }} {% endfor %}</b> </label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{% for r in report_name%} {{ r.translated_name }} {% endfor %}">
               <small id="emailHelp" class="form-text text-muted">Please fill in correctly</small>
               </div>
             </form>
           <h1 class="h2">Parameters translation</h1>
-<form>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label>Address</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-    </div>
-    <div class="form-group col-md-6">
-      <label>Address</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-    </div>
-  </div>
-  
-</form>
+            <form>
+              <div class="form-row">
+            {% for r in params_list%}
+                <div class="form-group col-md-6">
+                  <label>{{ r.base_name }}</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="{{ r.translated_name }}">
+                </div>
+            {% endfor %}    
+              </div>
+            </form>
 
           <h2>Default template</h2>
-
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-              <label class="form-check-label" for="exampleRadios1">
-                Default radio
-              </label>
-            </div>
+            {% for r in templ_list%}
             <div class="form-check">
               <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
               <label class="form-check-label" for="exampleRadios2">
-                Second default radio
+                {{ r.template_name }}
               </label>
             </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
-              <label class="form-check-label" for="exampleRadios3">
-                Disabled radio
-              </label>
-            </div>
+            {% endfor %}
+
 </br>
-<button type="button" class="btn btn-primary btn-lg btn-block">Block level button</button>
+<button type="button" class="btn btn-primary btn-lg btn-block">Save</button>
         </main>
       </div>
     </div>

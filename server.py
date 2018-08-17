@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from dblogic import language_list, report_list, report_edit_data_list
+from dblogic import language_list, report_list, report_info_dtls_list, report_info_params_list, report_info_templ_list
 
 app = Flask(__name__)
 
@@ -24,11 +24,10 @@ def reports_by_lang(lang_code):
 @app.route("/language/<lang_code>/<id>")
 def report_edit(lang_code, id):
 	reports_list = report_list()
-	report_data = report_edit_data_list(id, lang_code)
-	base_name = report_data['Report']['base name']
-	translated_name = report_data['Report']['translated name']
-	params = report_data['Parameters']
-	return render_template('reportconfig.html', reports=reports_list, language=lang_code, id=id, report_data=report_data, base_name=base_name, translated_name=translated_name, paramlist=params)
+	report_name = report_info_dtls_list(id, lang_code)
+	params_list = report_info_params_list(id, lang_code)
+	templ_list = report_info_templ_list(id, lang_code)
+	return render_template('reportconfig.html', reports=reports_list, language=lang_code, id=id, report_name=report_name, params_list=params_list, templ_list=templ_list)
 
 if __name__ == "__main__":
 	app.run(port=1111, debug=True)

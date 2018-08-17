@@ -91,11 +91,8 @@ def report_list():
 		report_list.append({'id':instance.id, 'name':instance.report_name})
 	return report_list
 
-def report_edit_data_list(report_id, lang_code):
-	report_data = {}
-	report_data['Report']={}
-	report_data['Parameters']={}
-	report_data['Templates']={}
+def report_info_dtls_list(report_id, lang_code):
+	report_data = []
 	report_n = '' 	# report name
 	lang_i = ''		# language number
 	report_loc =''	# report localisation name id
@@ -106,18 +103,40 @@ def report_edit_data_list(report_id, lang_code):
 
 	qa=db_session.query(Reports,report_strings).filter(Reports.id == report_id, Reports.id == report_strings.report_id, report_strings.lang_id == lang_i).all()
 	for report_name_data in qa:
-		report_data['Report']['base name'] = report_name_data.Reports.report_name
-		report_data['Report']['translated name'] = report_name_data.report_strings.local_name
-
-	qa=db_session.query(Parameters,param_strings).filter(Parameters.report_id == report_id, Parameters.id == param_strings.param_id, param_strings.lang_id==lang_i).all()
-	for paramdata in qa:
-		report_data['Parameters']['base_name'] = paramdata.Parameters.parameter_label
-		report_data['Parameters']['translated_name'] = paramdata.param_strings.data
-
-	qa=db_session.query(Templates).filter(Templates.report_id == report_id).all()
-	for tlist in qa:
-		report_data['Templates'][tlist.template_lang] = tlist.template_label
+		report_data.append({'base_name' : report_name_data.Reports.report_name, 'translated_name' : report_name_data.report_strings.local_name})
 
 	return report_data
 
+def report_info_params_list(report_id, lang_code):
+	report_data = []
+	report_n = '' 	# report name
+	lang_i = ''		# language number
+	report_loc =''	# report localisation name id
+	for instance in db_session.query(Reports).filter(Reports.id == report_id):
+		report_n = instance.report_name 
+	for instance in db_session.query(Languages).filter(Languages.code == lang_code):
+		lang_i = instance.id
+
+	qa=db_session.query(Parameters,param_strings).filter(Parameters.report_id == report_id, Parameters.id == param_strings.param_id, param_strings.lang_id==lang_i).all()
+	for paramdata in qa:
+		report_data.append({'base_name' : paramdata.Parameters.parameter_label, 'translated_name' : paramdata.param_strings.data})
+
+	return report_data
+
+
+def report_info_templ_list(report_id, lang_code):
+	report_data = []
+	report_n = '' 	# report name
+	lang_i = ''		# language number
+	report_loc =''	# report localisation name id
+	for instance in db_session.query(Reports).filter(Reports.id == report_id):
+		report_n = instance.report_name 
+	for instance in db_session.query(Languages).filter(Languages.code == lang_code):
+		lang_i = instance.id
+
+	qa=db_session.query(Templates).filter(Templates.report_id == report_id).all()
+	for tlist in qa:
+		report_data.append({'template_name' : tlist.template_label, 'template_lang' : tlist.template_lang})
+
+	return report_data
 
