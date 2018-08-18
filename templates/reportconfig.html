@@ -51,12 +51,31 @@
               <input type="text" name="rep_input_name" class="form-control" id="rep_input_name" placeholder="{% for r in report_name%} {{ r.translated_name }} {% endfor %}">
               <small id="emailHelp" class="form-text text-muted">Please fill in correctly</small>
               </div>
-              <input type="submit" />
+              <button type="button submit" class="btn btn-primary btn-lg btn-block">Save</button>
             </form>
 
+          <h1 class="h2">Parameters translation</h1>
+            <form>
+              <div class="form-row">
+                {% for r in params_list%}
+                <div class="form-group col-md-6">
+                  <label>{{ r.base_name }}</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="{{ r.translated_name }}">
+                </div>
+                {% endfor %}    
+              </div>
+            </form>
 
-</br>
-<button type="button" class="btn btn-primary btn-lg btn-block">Save</button>
+          <h2>Default template</h2>
+            {% for r in templ_list%}
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+              <label class="form-check-label" for="exampleRadios2">
+                {{ r.template_name }}
+              </label>
+            </div>
+            {% endfor %}
+
         </main>
       </div>
     </div>
