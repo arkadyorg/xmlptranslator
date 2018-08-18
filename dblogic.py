@@ -69,6 +69,10 @@ def templates_lable_strings_reindex(t_id, l_id):
 	else:
 		pass
 
+def update_report_local_name(rep_id, lang_id, local_name):
+	db_session.query(report_strings).filter(report_strings.report_id == rep_id, report_strings.lang_id == lang_id).update({'local_name': local_name, 'updated': datetime.now()})
+	db_session.commit()
+
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #	Read functions
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
