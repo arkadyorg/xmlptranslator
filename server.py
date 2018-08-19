@@ -8,9 +8,9 @@ def index():
 	result = language_list()
 	return render_template('index.html', languages=result)
 
-@app.route("/config")
-def config():
-	return "Config page"
+@app.route("/export")
+def export():
+	return "Export page"
 
 @app.route("/about")
 def about():

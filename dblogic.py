@@ -164,3 +164,4 @@ def report_info_templ_list(report_id, lang_code):
 
 	return report_data
 
+
