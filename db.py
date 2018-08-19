@@ -91,7 +91,7 @@ class report_strings(Base):
 	report_id = Column(Integer) #original ID
 	lang_id = Column(Integer) #Lang ID
 	local_name = Column(String(100))
-	#default_template = Column(Integer) #default template to show
+	default_template = Column(Integer) #default template to show
 	created = Column(TIMESTAMP, nullable=False)
 	updated = Column(TIMESTAMP, nullable=False)
 
