@@ -77,6 +77,10 @@ def update_param_local_name(par_string_id, local_name):
 	db_session.query(param_strings).filter(param_strings.id == par_string_id).update({'data': local_name, 'updated': datetime.now()})
 	db_session.commit()
 
+def update_template_default(rep_id, lang_id, local_template):
+	db_session.query(report_strings).filter(report_strings.report_id == rep_id, report_strings.lang_id == lang_id).update({'default_template': local_template, 'updated': datetime.now()})
+	db_session.commit()
+
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #	Read functions
@@ -104,6 +108,12 @@ def report_list():
 	for instance in Reports.query.order_by(Reports.report_name):
 		report_list.append({'id':instance.id, 'name':instance.report_name})
 	return report_list
+
+def default_templ_info(report_id, lang_id):
+	default_template = []
+	for instance in db_session.query(report_strings).filter(report_strings.report_id == report_id, report_strings.lang_id == lang_id):
+		default_template.append({'string_id': instance.id, 'default_template': instance.default_template})
+	return default_template
 
 def report_info_dtls_list(report_id, lang_code):
 	report_data = []
