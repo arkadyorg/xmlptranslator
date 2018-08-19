@@ -35,7 +35,7 @@ def post_report():
 	report_id = request.args['report_id']
 	lang_id = request.args['lang_id']
 	language = request.args['language']
-	test_get_params = request.form.getlist('param_input_name')
+	test_get_params = request.form.getlist('param_input_name[]')
 	print(test_get_params)
 	update_report_local_name(report_id,lang_id,request.form['rep_input_name'])
 

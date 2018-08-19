@@ -57,7 +57,7 @@
                 {% for r in params_list%}
                 <div class="form-group col-md-6">
                   <label>{{ r.base_name }}</label>
-                <input type="text" name="param_input_name" class="form-control" id="param_input_name" placeholder="{{ r.translated_name }}" value="{{ r.translated_name }}">
+                <input type="text" name="param_input_name{{ r.param_id }}" class="form-control" id="param_input_name" placeholder="{{ r.translated_name }}" value="{{ r.translated_name }}">
                 </div>
                 {% endfor %}    
               </div>

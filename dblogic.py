@@ -128,7 +128,7 @@ def report_info_params_list(report_id, lang_code):
 
 	qa=db_session.query(Parameters,param_strings).filter(Parameters.report_id == report_id, Parameters.id == param_strings.param_id, param_strings.lang_id==lang_i).all()
 	for paramdata in qa:
-		report_data.append({'base_name' : paramdata.Parameters.parameter_label, 'translated_name' : paramdata.param_strings.data})
+		report_data.append({'param_id' : paramdata.param_strings.id, 'base_name' : paramdata.Parameters.parameter_label, 'translated_name' : paramdata.param_strings.data})
 
 	return report_data
 
