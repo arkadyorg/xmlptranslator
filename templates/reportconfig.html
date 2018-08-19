@@ -34,7 +34,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="/language/{{ language }}/{{ r.id }}">
                   <span data-feather="file-text"></span>
-                  {{ r.name }}<span class="badge badge-pill badge-danger"> 4</span>
+                  {{ r.name }}
                 </a>
               </li>
               {% endfor %}
@@ -49,11 +49,22 @@
               <div class="form-group">
               <label for="rep_input_name">Local report name for <b>{% for r in report_name%} {{ r.base_name }} {% endfor %}</b> </label>
               <input type="text" name="rep_input_name" class="form-control" id="rep_input_name" placeholder="{% for r in report_name%} {{ r.translated_name }} {% endfor %}" value="{% for r in report_name%}{{ r.translated_name }}{% endfor %}">
-              <small id="emailHelp" class="form-text text-muted">Please fill in correctly</small>
+              <small id="rep_input_name_Help" class="form-text text-muted">Please fill in correctly</small>
               </div>
+
+<h1 class="h2">Parameters translation</h1>
+              <div class="form-row">
+                {% for r in params_list%}
+                <div class="form-group col-md-6">
+                  <label>{{ r.base_name }}</label>
+                <input type="text" name="param_input_name" class="form-control" id="param_input_name" placeholder="{{ r.translated_name }}" value="{{ r.translated_name }}">
+                </div>
+                {% endfor %}    
+              </div>
+
+
               <button type="button submit" class="btn btn-primary btn-lg btn-block">Save</button>
             </form>
-
 
         </main>
       </div>
