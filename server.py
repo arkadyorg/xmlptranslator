@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from dblogic import language_list, report_list, report_info_dtls_list, report_info_params_list, report_info_templ_list, update_report_local_name, language_id_by_code
+from dblogic import language_list, report_list, report_info_dtls_list, report_info_params_list, report_info_templ_list, update_report_local_name, language_id_by_code, update_param_local_name
 
 app = Flask(__name__)
 
@@ -32,11 +32,24 @@ def report_edit(lang_code, id):
 
 @app.route("/post_report", methods = ['POST'])
 def post_report():
+	param_catcher = []
+
 	report_id = request.args['report_id']
 	lang_id = request.args['lang_id']
 	language = request.args['language']
-	test_get_params = request.form.getlist('param_input_name[]')
-	print(test_get_params)
+
+	params_list = report_info_params_list(report_id, language)
+	for item in params_list:
+		param_name = request.form.getlist('param_input_name'+ str(item['param_id']))
+		param_id = item['param_id']
+		update_param_local_name(param_id, param_name[0])
+
+	print('ok')
+
+
+
+	#test_get_params = request.form.getlist('param_input_name')
+	#print(test_get_params)
 	update_report_local_name(report_id,lang_id,request.form['rep_input_name'])
 
 	return redirect(url_for('report_edit', lang_code=request.args['language'], id = request.args['report_id']))

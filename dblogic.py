@@ -73,6 +73,11 @@ def update_report_local_name(rep_id, lang_id, local_name):
 	db_session.query(report_strings).filter(report_strings.report_id == rep_id, report_strings.lang_id == lang_id).update({'local_name': local_name, 'updated': datetime.now()})
 	db_session.commit()
 
+def update_param_local_name(par_string_id, local_name):
+	db_session.query(param_strings).filter(param_strings.id == par_string_id).update({'data': local_name, 'updated': datetime.now()})
+	db_session.commit()
+
+
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #	Read functions
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
