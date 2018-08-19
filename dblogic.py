@@ -89,6 +89,11 @@ def language_list():
 		language_list.append({'code':instance.code, 'name':instance.name})
 	return language_list
 
+def language_id_by_code(code):
+	for instance in db_session.query(Languages).filter(Languages.code == code):
+		lang_i = instance.id
+	return(lang_i)
+
 def report_list():
 	report_list = []
 	for instance in Reports.query.order_by(Reports.report_name):

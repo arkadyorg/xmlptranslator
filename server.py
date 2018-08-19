@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from dblogic import language_list, report_list, report_info_dtls_list, report_info_params_list, report_info_templ_list, update_report_local_name
+from dblogic import language_list, report_list, report_info_dtls_list, report_info_params_list, report_info_templ_list, update_report_local_name, language_id_by_code
 
 app = Flask(__name__)
 
@@ -24,15 +24,19 @@ def reports_by_lang(lang_code):
 @app.route("/language/<lang_code>/<id>")
 def report_edit(lang_code, id):
 	reports_list = report_list()
+	language_id = language_id_by_code(lang_code)
 	report_name = report_info_dtls_list(id, lang_code)
 	params_list = report_info_params_list(id, lang_code)
 	templ_list = report_info_templ_list(id, lang_code)
-	return render_template('reportconfig.html', reports=reports_list, language=lang_code, id=id, report_name=report_name, params_list=params_list, templ_list=templ_list)
+	return render_template('reportconfig.html', reports=reports_list, language=lang_code, id=id, report_name=report_name, params_list=params_list, templ_list=templ_list, language_id=language_id)
 
 @app.route("/post_report", methods = ['POST'])
 def post_report():
-	update_report_local_name(1,1,request.form['rep_input_name'])
-	return redirect(url_for('index'))
+	report_id = request.args['report_id']
+	lang_id = request.args['lang_id']
+	language = request.args['language']
+	update_report_local_name(report_id,lang_id,request.form['rep_input_name'])
+	return redirect(url_for('report_edit', lang_code=request.args['language'], id = request.args['report_id']))
 
 if __name__ == "__main__":
 	app.run(port=1111, debug=True)
