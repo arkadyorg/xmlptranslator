@@ -43,13 +43,6 @@ def post_report():
 		param_name = request.form.getlist('param_input_name'+ str(item['param_id']))
 		param_id = item['param_id']
 		update_param_local_name(param_id, param_name[0])
-
-	print('ok')
-
-
-
-	#test_get_params = request.form.getlist('param_input_name')
-	#print(test_get_params)
 	update_report_local_name(report_id,lang_id,request.form['rep_input_name'])
 
 	return redirect(url_for('report_edit', lang_code=request.args['language'], id = request.args['report_id']))
