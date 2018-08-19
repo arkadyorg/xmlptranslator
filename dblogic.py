@@ -148,9 +148,9 @@ def report_info_templ_list(report_id, lang_code):
 	for instance in db_session.query(Languages).filter(Languages.code == lang_code):
 		lang_i = instance.id
 
-	qa=db_session.query(Templates).filter(Templates.report_id == report_id).all()
+	qa=db_session.query(Templates, templ_strings).filter(Templates.report_id == report_id, Templates.id == templ_strings.template_id).all()
 	for tlist in qa:
-		report_data.append({'template_name' : tlist.template_label, 'template_lang' : tlist.template_lang})
+		report_data.append({'template_name' : tlist.Templates.template_label, 'string_id' : tlist.templ_strings.id, 'translated_name': tlist.templ_strings.data})
 
 	return report_data
 
