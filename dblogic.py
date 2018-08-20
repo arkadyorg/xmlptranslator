@@ -103,6 +103,11 @@ def language_id_by_code(code):
 		lang_i = instance.id
 	return(lang_i)
 
+def language_code_by_id(id):
+	for instance in db_session.query(Languages).filter(Languages.id == id):
+		lang_code = instance.code
+	return(lang_code)
+
 def report_list():
 	report_list = []
 	for instance in Reports.query.order_by(Reports.report_name):
