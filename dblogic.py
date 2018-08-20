@@ -164,4 +164,10 @@ def report_info_templ_list(report_id, lang_code):
 
 	return report_data
 
+def report_dir_translist(lang_id):
+	files_data = []
+	qa=db_session.query(Reports, report_strings).filter(Reports.id == report_strings.report_id, report_strings.lang_id == lang_id, report_strings.local_name != None).all()
+	for reports in qa:
+		files_data.append({'report_id' : reports.Reports.id, 'original_name' : reports.Reports.report_name, 'original_dir' : reports.Reports.report_dir, 'original_file': reports.Reports.file_name, 'local_name': reports.report_strings.local_name})
 
+	return files_data
