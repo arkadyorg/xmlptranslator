@@ -1,11 +1,11 @@
 import shutil
 import os
 from dblogic import report_dir_translist, language_code_by_id
+import settings
 
-target_dir = "out/"
-original_dir = "original/"
-#lang_id = 2
 def local_dir_naming(lang_id):
+	target_dir = settings.target_dir
+	original_dir = settings.original_dir
 	lang_code = language_code_by_id(lang_id)
 	raw_data = report_dir_translist(lang_id)
 	replacements =[]
