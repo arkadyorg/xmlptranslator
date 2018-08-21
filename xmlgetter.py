@@ -23,6 +23,14 @@ def report_title(file_pointer):
 	root = tree.getroot()
 	return (root[0].text)
 
+def default_template(file_pointer):
+	default_template = []
+	tree = ET.parse(file_pointer)
+	root = tree.getroot()
+	for a in root.iterfind('./{http://xmlns.oracle.com/oxp/xmlp}templates'):
+		default_template.append({'default': a.attrib.get('default')})
+	return default_template
+
 def template_lister(rep_id, file_pointer):
 	tree = ET.parse(file_pointer)
 	root = tree.getroot()
