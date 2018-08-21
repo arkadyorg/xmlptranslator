@@ -3,6 +3,7 @@ from dblogic import report_reindex, report_filepointer_select, template_reindex,
 from xmlgetter import template_lister, parameters_lister
 from fileconsistency import file_copy
 import settings
+from xmlupdater import xdo_copy_translate
 
 
 def report_reindex_igniter():
@@ -49,3 +50,13 @@ def tmpl_local_out_copy(lang_id):
 		end_dir = report['original_dir'].replace(report['report_original_name'], report['report_local_name'])
 		final_dir = end_dir.replace(original_dir, target_dir + lang_code + '/' )
 		file_copy(report['original_dir'], (report['original_file']), final_dir, (report['local_file']))
+
+def xdo_local_translate_out_copy(report_id, lang_id):
+	target_dir = settings.target_dir
+	original_dir = settings.original_dir
+	lang_code = language_code_by_id(lang_id)
+	raw_data = report_dir_translist(lang_id)
+	for report in raw_data:
+		end_dir = report['original_dir'].replace(report['original_name'], report['local_name'])
+		final_dir = end_dir.replace(original_dir, target_dir + lang_code + '/' )
+		xdo_copy_translate(report_id, lang_code, report['original_dir'], (report['original_name']+'.xdo'), final_dir, (report['local_name']+'.xdo'))

@@ -1,13 +1,14 @@
-import xml.etree.ElementTree as ET
+from dblogic import translation_list
+import shutil
+import os
 
-file_pointer = "0102 Балансы счетов детально.xdo"
-tree = ET.parse(file_pointer)
-root = tree.getroot()
-
-for template_param in root.iterfind('./{http://xmlns.oracle.com/oxp/xmlp}parameters//'):
-	label = template_param.attrib
-	if 'label' in label:
-		param_lable = label.get('label')
-		print (param_lable)
-	else:
-		pass
+def xdo_copy_translate(report_id, lang_code, source_dir, source_file, target_dir, target_file):
+	translist = {}
+	translations = translation_list(report_id,lang_code)
+	for a in translations:
+		translist['label="'+ a['base_name']] = 'label="'+ a['translated_name']
+	with open((os.path.join(source_dir, source_file)), encoding='utf-8') as infile, open((os.path.join(target_dir, target_file)), 'w', encoding='utf-8') as outfile:
+	    for line in infile:
+	        for src, target in translist.items():
+	            line = line.replace(src, target)
+	        outfile.write(line)

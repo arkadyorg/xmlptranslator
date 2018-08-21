@@ -185,3 +185,18 @@ def template_dir_translist(lang_id):
 
 	return files_data
 
+def translation_list(report_id, lang_code):
+	translation_data = []
+	report_n = '' 	# report name
+	lang_i = ''		# language number
+	report_loc =''	# report localisation name id
+	for instance in db_session.query(Reports).filter(Reports.id == report_id):
+		report_n = instance.report_name 
+	for instance in db_session.query(Languages).filter(Languages.code == lang_code):
+		lang_i = instance.id
+	qa=db_session.query(Reports, report_strings, Parameters, param_strings).filter(Reports.id == report_strings.report_id, report_strings.lang_id == lang_i, report_strings.local_name != None, Parameters.report_id == Reports.id, Reports.id == report_id, param_strings.param_id == Parameters.id, param_strings.lang_id == lang_i).all()
+	for data in qa:
+		translation_data.append({'base_name': data.Parameters.parameter_label,'translated_name': data.param_strings.data})
+	return translation_data
+
+
