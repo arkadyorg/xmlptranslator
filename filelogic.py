@@ -1,6 +1,6 @@
 import os, fnmatch, collections 
 from dblogic import report_reindex, report_filepointer_select, template_reindex, parameters_reindex, report_dir_translist, language_code_by_id, template_dir_translist
-from xmlgetter import template_lister, parameters_lister
+from xmlgetter import template_lister, parameters_lister, default_template
 from fileconsistency import file_copy
 import settings
 from xmlupdater import xdo_copy_translate
@@ -15,7 +15,10 @@ def report_reindex_igniter():
 				title = (os.path.join(filename)).replace(".xdo", "")
 				report_directory = (os.path.join(root))
 				file_name = (os.path.join(filename))
-				report_reindex(title, report_directory, file_name)
+				full_dir = default_template(os.path.join(root, filename))
+				for a in full_dir:
+					dt = (a['default'])
+				report_reindex(title, report_directory, file_name, dt)
 
 def template_reindex_igniter():
 	filepointers = report_filepointer_select()
