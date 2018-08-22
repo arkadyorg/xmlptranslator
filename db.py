@@ -14,7 +14,7 @@ class Reports(Base):
     report_name = Column(String(100)) #title
     report_dir = Column(String(300)) #without end file
     file_name = Column(String(100)) #full filename
-    #default_template = Column(String(100)) 
+    default_template = Column(String(150)) 
     created = Column(TIMESTAMP, nullable=False)
     updated = Column(TIMESTAMP, nullable=False)
 
