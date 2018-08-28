@@ -1,0 +1,18 @@
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              
+              {% for r in reports%}
+              <li class="nav-item">
+                <a class="nav-link" href="/language/{{ language }}/{{ r.id }}">
+                  <span data-feather="file-text"></span>
+                  {{ r.name }}<small><span class="badge badge-pill badge-dark align-top">{{ r.issues }}</span></small>
+                </a>
+              </li>
+              {% endfor %}
+
+            </ul>
+          </div>
+        </nav>
