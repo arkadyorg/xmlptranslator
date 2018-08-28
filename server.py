@@ -4,7 +4,7 @@ from dblogic import (
                     report_info_params_list, report_info_templ_list,
                     update_report_local_name, language_id_by_code,
                     update_param_local_name, update_template_default,
-                    default_templ_info)
+                    default_templ_info, report_list_issue_bylang)
 
 app = Flask(__name__)
 
@@ -27,7 +27,8 @@ def about():
 
 @app.route("/language/<lang_code>")
 def reports_by_lang(lang_code):
-    result = report_list()
+    language_id = language_id_by_code(lang_code)
+    result = report_list_issue_bylang(language_id)
     return render_template(
                             'reportlist.html', reports=result,
                             language=lang_code)
@@ -35,8 +36,8 @@ def reports_by_lang(lang_code):
 
 @app.route("/language/<lang_code>/<id>")
 def report_edit(lang_code, id):
-    reports_list = report_list()
     language_id = language_id_by_code(lang_code)
+    reports_list = report_list_issue_bylang(language_id)
     report_name = report_info_dtls_list(id, lang_code)
     params_list = report_info_params_list(id, lang_code)
     templ_list = report_info_templ_list(id, lang_code)
