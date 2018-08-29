@@ -28,9 +28,34 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Click on any report to change it for {{ language }} language</h1>
-            
+            <h1 class="h2">You are in {{ language }} language extension</h1>
           </div>
+            <p class="h2">Report statistics</p>
+            <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Report name</th>
+      <th scope="col">Name issue</th>
+      <th scope="col">Parameters issue</th>
+      <th scope="col">Templates issue</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for r in reports%}
+    <tr>
+      <th scope="row">{{ r.id }}</th>
+      <td>{{ r.name }}</td>
+      <td>{{ r.naming_issue }}</td>
+      <td>{{ r.parameters_issue }}</td>
+      <td>{{ r.templates_issue }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+            <p class="h2">Reports export</p>
 
         </main>
       </div>
