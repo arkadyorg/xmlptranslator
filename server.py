@@ -4,7 +4,11 @@ from dblogic import (
                     report_info_params_list, report_info_templ_list,
                     update_report_local_name, language_id_by_code,
                     update_param_local_name, update_template_default,
-                    default_templ_info, report_list_issue_bylang)
+                    default_templ_info, report_list_issue_bylang,
+                    language_code_by_id)
+from fileconsistency import local_dir_naming
+from filelogic import xdo_local_translate_out_copy, tmpl_local_out_copy
+
 
 app = Flask(__name__)
 
@@ -31,7 +35,7 @@ def reports_by_lang(lang_code):
     result = report_list_issue_bylang(language_id)
     return render_template(
                             'reportlist.html', reports=result,
-                            language=lang_code)
+                            language=lang_code, language_id=language_id)
 
 
 @app.route("/language/<lang_code>/<id>")
@@ -77,6 +81,20 @@ def post_report():
                     url_for(
                             'report_edit', lang_code=request.args['language'],
                             id=request.args['report_id']))
+
+
+@app.route("/export_reports", methods=['POST'])
+def export_reports():
+    lang_id = request.args['lang_id']
+    lang_code = language_code_by_id(lang_id)
+    report_lista = report_list()
+    local_dir_naming(lang_id)
+    for a in report_lista:
+        xdo_local_translate_out_copy(a['id'],lang_id)
+    tmpl_local_out_copy(lang_id)
+    return redirect(
+                    url_for(
+                            'reports_by_lang', lang_code=lang_code))
 
 
 if __name__ == "__main__":
