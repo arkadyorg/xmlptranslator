@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../static/img/favicon.ico">
 
-    <title>J.A.R.T. - Just Another Report Translator</title>
+    <title>J.A.R.T. - Just Another Report Translator {{ language }}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
@@ -19,7 +19,7 @@
   <body>
 
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">J.A.R.T. Home {{ language }}</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">J.A.R.T. Home </a><button type="button" class="btn btn-outline-light btn-sm" href="/language/{{ language }}">{{ language }}</button>
       <ul class="navbar-nav px-3">
       </ul>
     </nav>
@@ -45,8 +45,8 @@
   <tbody>
     {% for r in reports%}
     <tr>
-      <th scope="row">{{ r.id }}</th>
-      <td>{{ r.name }}</td>
+      <th scope="row" class="text-muted">{{ r.id }}</th>
+      <td><strong>{{ r.name }}</strong></td>
       <td>{{ r.naming_issue }}</td>
       <td>{{ r.parameters_issue }}</td>
       <td>{{ r.templates_issue }}</td>
@@ -56,7 +56,10 @@
 
 </table>
             <p class="h2">Reports export</p>
-
+            <form method = "post" action="/export_reports?lang_id={{ language_id }}">
+<button type="button submit" name="submit" class="btn btn-outline-success">{{ language }} reports export</button>
+</form>
+</br>
         </main>
       </div>
     </div>
