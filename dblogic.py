@@ -1,4 +1,4 @@
-from db import db_session, Reports, Templates, Parameters, Languages, report_strings, param_strings, templ_strings
+from db import db_session, Reports, Templates, Parameters, Languages, report_strings, param_strings, templ_strings, dictionary
 from sqlalchemy import or_
 from datetime import datetime
 import xml.etree.ElementTree as ET
@@ -81,6 +81,16 @@ def update_param_local_name(par_string_id, local_name):
 def update_template_default(rep_id, lang_id, local_template):
 	db_session.query(report_strings).filter(report_strings.report_id == rep_id, report_strings.lang_id == lang_id).update({'default_template': local_template, 'updated': datetime.now()})
 	db_session.commit()
+
+
+def dictionary_writer(lang_id, datatype, original, translation):
+	exists = db_session.query(dictionary).filter_by(lang_id = lang_id, datatype = datatype, original = original, translation = translation).scalar() is not None
+	if exists == False:
+		translation_item = dictionary(lang_id = lang_id, datatype = datatype, original = original, translation = translation, created=datetime.now(), updated=datetime.now())
+		db_session.add(translation_item)
+		db_session.commit()
+	else:
+		pass		
 
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
