@@ -108,5 +108,15 @@ class report_strings(Base):
         return '<Template strings list for report {}>'.format(self.report_id)
 
 
+class dictionary(Base):
+    __tablename__ = 'dictionary_strings'
+    id = Column(Integer, primary_key=True)
+    lang_id = Column(Integer)  # Lang ID
+    datatype = Column(Integer) # 1 Report name / 2 parameters / 3 Templates / 4 Deep / 5 Dir
+    original = Column(String(100))
+    translation = Column(String(100))
+    created = Column(TIMESTAMP, nullable=False)
+    updated = Column(TIMESTAMP, nullable=False)
+
 if __name__ == "__main__":
     Base.metadata.create_all(bind=engine)
