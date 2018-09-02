@@ -254,3 +254,10 @@ def dictionary_report_naming_miner(lang_id):
 		translated_data.append({'lang_id' : items.report_strings.lang_id, 'datatype' : 1, 'original' : items.Reports.report_name, 'translation': items.report_strings.local_name})
 	return translated_data
 
+def dictionary_report_parameters_miner(lang_id):
+	translated_data = []
+	qa=db_session.query(Parameters, param_strings).filter(Parameters.id == param_strings.param_id, param_strings.lang_id == lang_id, param_strings.data != None).all()
+	for items in qa:
+		translated_data.append({'lang_id' : items.param_strings.lang_id, 'datatype' : 2, 'original' : items.Parameters.parameter_label, 'translation': items.param_strings.data})
+	return translated_data
+
