@@ -8,7 +8,7 @@ from dblogic import (
                     language_code_by_id)
 from fileconsistency import local_dir_naming
 from filelogic import xdo_local_translate_out_copy, tmpl_local_out_copy
-
+from dictionary import dictionary_refresh
 
 app = Flask(__name__)
 
@@ -89,6 +89,7 @@ def export_reports():
     lang_code = language_code_by_id(lang_id)
     report_lista = report_list()
     local_dir_naming(lang_id)
+    dictionary_refresh(lang_id)
     for a in report_lista:
         xdo_local_translate_out_copy(a['id'],lang_id)
     tmpl_local_out_copy(lang_id)
