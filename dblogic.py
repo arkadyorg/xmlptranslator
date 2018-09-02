@@ -268,3 +268,10 @@ def dictionary_report_name_getter(lang_id):
 		translated_data.append({'report_id' : items.Reports.id, 'lang_id' : lang_id, 'original' : items.Reports.report_name, 'current_translation' : items.report_strings.local_name, 'dictionary_answer' : items.dictionary.translation, 'translated_item_id': items.report_strings.id})
 	return translated_data
 
+def dictionary_report_parameters_getter(lang_id):
+	translated_data = []
+	qa=db_session.query(Parameters, param_strings, dictionary).filter(Parameters.id == param_strings.param_id, param_strings.lang_id == lang_id, dictionary.lang_id == lang_id, Parameters.parameter_label == dictionary.original, dictionary.datatype == 2 , param_strings.data == '').all()
+	for items in qa:
+		translated_data.append({'report_id' : items.Parameters.id, 'lang_id' : lang_id, 'original' : items.Parameters.parameter_label, 'current_translation' : items.param_strings.data, 'dictionary_answer' : items.dictionary.translation, 'translated_item_id': items.param_strings.id})
+	return translated_data
+
