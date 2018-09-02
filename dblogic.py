@@ -246,3 +246,11 @@ def template_translation_list(report_id, lang_code):
 	for data in qa:
 		translation_data.append({'base_name': data.Reports.default_template,'translated_name': data.report_strings.default_template})
 	return translation_data
+
+def dictionary_report_naming_miner(lang_id):
+	translated_data = []
+	qa=db_session.query(Reports, report_strings).filter(Reports.id == report_strings.report_id, report_strings.lang_id == lang_id, report_strings.local_name != None).all()
+	for items in qa:
+		translated_data.append({'lang_id' : items.report_strings.lang_id, 'datatype' : 1, 'original' : items.Reports.report_name, 'translation': items.report_strings.local_name})
+	return translated_data
+
