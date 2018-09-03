@@ -228,9 +228,6 @@ def param_translation_list(report_id, lang_code):
 	qa=db_session.query(Reports, report_strings, Parameters, param_strings).filter(Reports.id == report_strings.report_id, report_strings.lang_id == lang_i, report_strings.local_name != None, Parameters.report_id == Reports.id, Reports.id == report_id, param_strings.param_id == Parameters.id, param_strings.lang_id == lang_i).all()
 	for data in qa:
 		translation_data.append({'base_name': data.Parameters.parameter_label,'translated_name': data.param_strings.data})
-	#qb=db_session.query(Reports, report_strings).filter(Reports.id == report_strings.report_id, Reports.id == report_id, report_strings.lang_id == lang_i).all()
-	#for data in qb:
-	#	translation_data.append({'base_name': data.Reports.default_template,'translated_name': data.report_strings.default_template})
 	return translation_data
 
 def template_translation_list(report_id, lang_code):
