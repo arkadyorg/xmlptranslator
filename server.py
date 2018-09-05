@@ -19,9 +19,9 @@ def index():
     return render_template('index.html', languages=result)
 
 
-@app.route("/export")
+@app.route("/configurator")
 def export():
-    return "Export page"
+    return "Config page"
 
 
 @app.route("/about")
