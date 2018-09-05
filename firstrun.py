@@ -5,7 +5,7 @@ from dbconsistency import report_naming, parameters_lang_naming, templates_lang_
 
 
 # Create DB
-os.system("db.py")
+os.system('python db.py')
 
 # Report base information collector
 report_reindex_igniter()
