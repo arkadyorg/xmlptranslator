@@ -21,7 +21,7 @@ def index():
 
 @app.route("/configurator")
 def export():
-    return "Config page"
+    return render_template('config.html')
 
 
 @app.route("/about")
