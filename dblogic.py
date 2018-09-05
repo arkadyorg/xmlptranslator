@@ -17,7 +17,7 @@ def report_reindex(r_name,r_dir,r_file,r_deftempl):
 		pass
 
 def template_reindex(rep_id,t_label,t_type,t_url,t_lang):
-	exists = db_session.query(Templates.template_label).filter_by(template_label=t_label).scalar() is not None
+	exists = db_session.query(Templates).filter_by(template_label=t_label, report_id=rep_id).scalar() is not None
 	if exists == False:	
 		template_item=Templates(report_id=rep_id, template_label=t_label, template_type=t_type, template_url=t_url, template_lang=t_lang, created=datetime.now(), updated=datetime.now())
 		db_session.add(template_item)
@@ -91,6 +91,15 @@ def dictionary_writer(lang_id, datatype, original, translation):
 		db_session.commit()
 	else:
 		pass		
+
+def delete_reports_data():
+	templ_strings.query.delete()
+	param_strings.query.delete()
+	report_strings.query.delete()
+	Parameters.query.delete()
+	Templates.query.delete()
+	Reports.query.delete()
+	db_session.commit()
 
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -260,14 +269,14 @@ def dictionary_report_parameters_miner(lang_id):
 
 def dictionary_report_name_getter(lang_id):
 	translated_data = []
-	qa=db_session.query(Reports, report_strings, dictionary).filter(Reports.id == report_strings.report_id, report_strings.lang_id == lang_id, dictionary.lang_id == lang_id, Reports.report_name == dictionary.original, dictionary.datatype == 1 , report_strings.local_name == '').all()
+	qa=db_session.query(Reports, report_strings, dictionary).filter(Reports.id == report_strings.report_id, report_strings.lang_id == lang_id, dictionary.lang_id == lang_id, Reports.report_name == dictionary.original, dictionary.datatype == 1).all()
 	for items in qa:
 		translated_data.append({'report_id' : items.Reports.id, 'lang_id' : lang_id, 'original' : items.Reports.report_name, 'current_translation' : items.report_strings.local_name, 'dictionary_answer' : items.dictionary.translation, 'translated_item_id': items.report_strings.id})
 	return translated_data
 
 def dictionary_report_parameters_getter(lang_id):
 	translated_data = []
-	qa=db_session.query(Parameters, param_strings, dictionary).filter(Parameters.id == param_strings.param_id, param_strings.lang_id == lang_id, dictionary.lang_id == lang_id, Parameters.parameter_label == dictionary.original, dictionary.datatype == 2 , param_strings.data == '').all()
+	qa=db_session.query(Parameters, param_strings, dictionary).filter(Parameters.id == param_strings.param_id, param_strings.lang_id == lang_id, dictionary.lang_id == lang_id, Parameters.parameter_label == dictionary.original, dictionary.datatype == 2).all()
 	for items in qa:
 		translated_data.append({'report_id' : items.Parameters.id, 'lang_id' : lang_id, 'original' : items.Parameters.parameter_label, 'current_translation' : items.param_strings.data, 'dictionary_answer' : items.dictionary.translation, 'translated_item_id': items.param_strings.id})
 	return translated_data
