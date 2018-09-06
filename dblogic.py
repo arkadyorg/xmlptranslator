@@ -101,6 +101,10 @@ def delete_reports_data():
 	Reports.query.delete()
 	db_session.commit()
 
+def dictionary_reset():
+	dictionary.query.delete()
+	db_session.commit()
+
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #	Read functions
@@ -280,4 +284,11 @@ def dictionary_report_parameters_getter(lang_id):
 	for items in qa:
 		translated_data.append({'report_id' : items.Parameters.id, 'lang_id' : lang_id, 'original' : items.Parameters.parameter_label, 'current_translation' : items.param_strings.data, 'dictionary_answer' : items.dictionary.translation, 'translated_item_id': items.param_strings.id})
 	return translated_data
+
+def dictionary_data():
+	dictionary_data = []
+	qa=db_session.query(Languages, dictionary).filter(dictionary.lang_id == Languages.id).all()
+	for items in qa:
+		dictionary_data.append({'lang_code' : items.Languages.code, 'lang_name' : items.Languages.name, 'original' : items.dictionary.original, 'translation' : items.dictionary.translation })
+	return dictionary_data
 
