@@ -5,10 +5,12 @@ from dblogic import (
                     update_report_local_name, language_id_by_code,
                     update_param_local_name, update_template_default,
                     default_templ_info, report_list_issue_bylang,
-                    language_code_by_id)
+                    language_code_by_id, delete_reports_data)
 from fileconsistency import local_dir_naming
-from filelogic import xdo_local_translate_out_copy, tmpl_local_out_copy
-from dictionary import dictionary_refresh
+from filelogic import xdo_local_translate_out_copy, tmpl_local_out_copy, report_reindex_igniter, template_reindex_igniter, parameters_reindex_igniter
+from dictionary import dictionary_refresh, report_names_autotranslate, report_parameters_autotranslate
+from dbconsistency import report_naming, parameters_lang_naming, templates_lang_naming
+
 
 app = Flask(__name__)
 
@@ -20,7 +22,7 @@ def index():
 
 
 @app.route("/configurator")
-def export():
+def config():
     return render_template('config.html')
 
 
@@ -97,6 +99,40 @@ def export_reports():
                     url_for(
                             'reports_by_lang', lang_code=lang_code))
 
+
+@app.route("/post_config", methods=['POST'])
+def post_config():
+    drop = request.args['drop']
+    re_index = request.args['re_index']
+    if drop == '1':
+        delete_reports_data()
+    else:
+        pass
+    if re_index == '1':
+        report_reindex_igniter()
+        template_reindex_igniter()
+        parameters_reindex_igniter()
+        report_naming()
+        parameters_lang_naming()
+        templates_lang_naming()
+    else:
+        pass  
+    return redirect(url_for('config'))
+
+
+@app.route("/post_translate", methods=['POST'])
+def post_translate():
+    lang_id = request.args['lang_id']
+    translate = request.args['translate']
+    lang_code = language_code_by_id(lang_id)
+    if translate == '1':
+        report_names_autotranslate(lang_id)
+        report_parameters_autotranslate(lang_id)
+    else:
+        pass
+    return redirect(
+                    url_for(
+                            'reports_by_lang', lang_code=lang_code))
 
 if __name__ == "__main__":
     app.run(port=1111, debug=True)

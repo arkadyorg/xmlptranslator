@@ -30,6 +30,10 @@
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">You are in {{ language }} language extension</h1>
           </div>
+          <p class="h2">Report translate</p>
+          <form method = "post" action="/post_translate?lang_id={{ language_id }}&translate=1">
+<button type="button submit" name="submit" class="btn btn-outline-primary">Translate</button>
+</form>
             <p class="h2">Report statistics</p>
             <table class="table table-striped">
   <thead>

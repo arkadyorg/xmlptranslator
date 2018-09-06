@@ -27,8 +27,14 @@
 
       </div>
               <h1 class="h2">Language configuration</h1>
-        <h1 class="h2">Report drop</h1>
-    </div>
+        <h1 class="h2">Report global operations</h1>
+        <form method = "post" action="/post_config?drop=1&re_index=0">
+<button type="button submit" name="submit" class="btn btn-outline-danger">Delete reports</button>
+</form>
+</br>
+        <form method = "post" action="/post_config?drop=0&re_index=1">
+<button type="button submit" name="submit" class="btn btn-outline-success">Re import reports</button>
+</form>
 
     <!-- Bootstrap core JavaScript -->
     <script src="../static/jquery/jquery.min.js"></script>
