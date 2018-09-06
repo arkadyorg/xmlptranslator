@@ -5,7 +5,8 @@ from dblogic import (
                     update_report_local_name, language_id_by_code,
                     update_param_local_name, update_template_default,
                     default_templ_info, report_list_issue_bylang,
-                    language_code_by_id, delete_reports_data)
+                    language_code_by_id, delete_reports_data,
+                    dictionary_reset, dictionary_data)
 from fileconsistency import local_dir_naming
 from filelogic import xdo_local_translate_out_copy, tmpl_local_out_copy, report_reindex_igniter, template_reindex_igniter, parameters_reindex_igniter
 from dictionary import dictionary_refresh, report_names_autotranslate, report_parameters_autotranslate
@@ -23,7 +24,8 @@ def index():
 
 @app.route("/configurator")
 def config():
-    return render_template('config.html')
+    dictionary = dictionary_data()
+    return render_template('config.html', dictionary=dictionary)
 
 
 @app.route("/about")
@@ -104,6 +106,7 @@ def export_reports():
 def post_config():
     drop = request.args['drop']
     re_index = request.args['re_index']
+    dict_reset = request.args['dict_reset']
     if drop == '1':
         delete_reports_data()
     else:
@@ -116,7 +119,11 @@ def post_config():
         parameters_lang_naming()
         templates_lang_naming()
     else:
-        pass  
+        pass
+    if dict_reset == '1':
+        dictionary_reset()
+    else:
+        pass
     return redirect(url_for('config'))
 
 
