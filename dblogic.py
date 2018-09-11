@@ -105,6 +105,9 @@ def dictionary_reset():
 	dictionary.query.delete()
 	db_session.commit()
 
+def dictionary_item_delete(id):
+	db_session.query(dictionary).filter(dictionary.id == id).delete()
+	db_session.commit()
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #	Read functions
@@ -289,6 +292,6 @@ def dictionary_data():
 	dictionary_data = []
 	qa=db_session.query(Languages, dictionary).filter(dictionary.lang_id == Languages.id).all()
 	for items in qa:
-		dictionary_data.append({'lang_code' : items.Languages.code, 'lang_name' : items.Languages.name, 'original' : items.dictionary.original, 'translation' : items.dictionary.translation })
+		dictionary_data.append({'lang_code' : items.Languages.code, 'lang_name' : items.Languages.name, 'original' : items.dictionary.original, 'translation' : items.dictionary.translation, 'item_id':items.dictionary.id })
 	return dictionary_data
 
