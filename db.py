@@ -14,9 +14,9 @@ Base.query = db_session.query_property()
 class Reports(Base):
     __tablename__ = 'reports'
     id = Column(Integer, primary_key=True)
-    report_name = Column(String(100))  # title
-    report_dir = Column(String(300))  # without end file
-    file_name = Column(String(100))  # full filename
+    report_name = Column(String(254))  # title
+    report_dir = Column(String(1000))  # without end file
+    file_name = Column(String(254))  # full filename
     default_template = Column(String(150))
     created = Column(TIMESTAMP, nullable=False)
     updated = Column(TIMESTAMP, nullable=False)
@@ -42,10 +42,10 @@ class Templates(Base):
     __tablename__ = 'templates'
     id = Column(Integer, primary_key=True)
     report_id = Column(Integer)
-    template_label = Column(String(100))
-    template_type = Column(String(100))
-    template_url = Column(String(100))
-    template_lang = Column(String(100))
+    template_label = Column(String(254))
+    template_type = Column(String(254))
+    template_url = Column(String(254))
+    template_lang = Column(String(254))
     created = Column(TIMESTAMP, nullable=False)
     updated = Column(TIMESTAMP, nullable=False)
 
@@ -60,7 +60,7 @@ class Parameters(Base):
     id = Column(Integer, primary_key=True)
     report_id = Column(Integer)
     parameter_id = Column(String(100))
-    parameter_label = Column(String(100))
+    parameter_label = Column(String(254))
     created = Column(TIMESTAMP, nullable=False)
     updated = Column(TIMESTAMP, nullable=False)
 
@@ -73,7 +73,7 @@ class templ_strings(Base):
     id = Column(Integer, primary_key=True)
     template_id = Column(Integer)
     lang_id = Column(Integer)
-    data = Column(String(100))
+    data = Column(String(254))
     created = Column(TIMESTAMP, nullable=False)
     updated = Column(TIMESTAMP, nullable=False)
 
@@ -86,7 +86,7 @@ class param_strings(Base):
     id = Column(Integer, primary_key=True)
     param_id = Column(Integer)
     lang_id = Column(Integer)
-    data = Column(String(100))
+    data = Column(String(254))
     created = Column(TIMESTAMP, nullable=False)
     updated = Column(TIMESTAMP, nullable=False)
 
@@ -100,7 +100,7 @@ class report_strings(Base):
     report_id = Column(Integer)  # original ID
     lang_id = Column(Integer)  # Lang ID
     local_name = Column(String(100))
-    default_template = Column(String(100))  # default template to show
+    default_template = Column(String(254))  # default template to show
     created = Column(TIMESTAMP, nullable=False)
     updated = Column(TIMESTAMP, nullable=False)
 
@@ -113,8 +113,8 @@ class dictionary(Base):
     id = Column(Integer, primary_key=True)
     lang_id = Column(Integer)  # Lang ID
     datatype = Column(Integer) # 1 Report name / 2 parameters / 3 Templates / 4 Deep / 5 Dir
-    original = Column(String(100))
-    translation = Column(String(100))
+    original = Column(String(254))
+    translation = Column(String(254))
     created = Column(TIMESTAMP, nullable=False)
     updated = Column(TIMESTAMP, nullable=False)
 
