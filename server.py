@@ -6,7 +6,8 @@ from dblogic import (
                     update_param_local_name, update_template_default,
                     default_templ_info, report_list_issue_bylang,
                     language_code_by_id, delete_reports_data,
-                    dictionary_reset, dictionary_data, dictionary_item_delete)
+                    dictionary_reset, dictionary_data, dictionary_item_delete,
+                    add_user)
 from fileconsistency import local_dir_naming
 from filelogic import xdo_local_translate_out_copy, tmpl_local_out_copy, report_reindex_igniter, template_reindex_igniter, parameters_reindex_igniter
 from dictionary import dictionary_refresh, report_names_autotranslate, report_parameters_autotranslate

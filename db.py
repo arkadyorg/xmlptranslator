@@ -118,5 +118,12 @@ class dictionary(Base):
     created = Column(TIMESTAMP, nullable=False)
     updated = Column(TIMESTAMP, nullable=False)
 
+class users(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    username = Column(String(254))
+    pincode = Column(String(254))
+    active = Column(Integer)
+
 if __name__ == "__main__":
     Base.metadata.create_all(bind=engine)

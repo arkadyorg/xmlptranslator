@@ -1,4 +1,4 @@
-from db import db_session, Reports, Templates, Parameters, Languages, report_strings, param_strings, templ_strings, dictionary
+from db import db_session, Reports, Templates, Parameters, Languages, report_strings, param_strings, templ_strings, dictionary, users
 from sqlalchemy import or_
 from datetime import datetime
 import xml.etree.ElementTree as ET
@@ -108,6 +108,15 @@ def dictionary_reset():
 def dictionary_item_delete(id):
 	db_session.query(dictionary).filter(dictionary.id == id).delete()
 	db_session.commit()
+
+def add_user(username, pincode):
+	exists = db_session.query(users).filter_by(username=username, pincode=pincode).scalar() is not None
+	if exists == False:
+		new_user=users(username=username, pincode=pincode, active=1)
+		db_session.add(new_user)
+		db_session.commit()
+	else:
+		pass
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #	Read functions
