@@ -12,7 +12,7 @@ from fileconsistency import local_dir_naming
 from filelogic import xdo_local_translate_out_copy, tmpl_local_out_copy, report_reindex_igniter, template_reindex_igniter, parameters_reindex_igniter
 from dictionary import dictionary_refresh, report_names_autotranslate, report_parameters_autotranslate
 from dbconsistency import report_naming, parameters_lang_naming, templates_lang_naming
-
+import os
 
 app = Flask(__name__)
 
@@ -148,4 +148,5 @@ def post_translate():
                             'reports_by_lang', lang_code=lang_code))
 
 if __name__ == "__main__":
+    app.secret_key = os.urandom(12)
     app.run(port=1111, debug=True)
