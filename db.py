@@ -14,14 +14,14 @@ Base.query = db_session.query_property()
 class Reports(Base):
     __tablename__ = 'reports'
     id = Column(Integer, primary_key=True)
-    report_name = Column(String(254))  # title
-    report_dir = Column(String(1000))  # without end file
-    file_name = Column(String(254))  # full filename
+    report_name = Column(String(254))  
+    report_dir = Column(String(1000))  
+    file_name = Column(String(254))  
     default_template = Column(String(150))
     created = Column(TIMESTAMP, nullable=False)
     updated = Column(TIMESTAMP, nullable=False)
 
-    def __repr__(self):  # внутри классов - методы
+    def __repr__(self): 
         return '<Report #{}: {}>'.format(self.id, self.report_name)
 
 
