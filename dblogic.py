@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from db import db_session, Reports, Templates, Parameters, Languages, report_strings, param_strings, templ_strings, dictionary, users
 from sqlalchemy import or_
 from datetime import datetime
@@ -157,8 +160,9 @@ def report_list_issue_bylang(lang_id):
 		iss_param_names = db_session.query(Parameters, param_strings).filter(Parameters.report_id == instance.id, Parameters.id == param_strings.param_id, param_strings.lang_id == lang_id).filter(or_(param_strings.data == 'None', param_strings.data == None, param_strings.data == '')).count()
 		iss_def_templ_names = db_session.query(report_strings).filter(report_strings.report_id == instance.id, report_strings.lang_id == lang_id).filter(or_(report_strings.default_template == None, report_strings.default_template == 'None', report_strings.default_template == '')).count()
 		issue_sum = iss_report_names + iss_param_names + iss_def_templ_names
-		report_list.append({'id':instance.id, 'name':instance.report_name, 'issues': issue_sum, 'naming_issue': iss_report_names, 'parameters_issue': iss_param_names, 'templates_issue': iss_def_templ_names})
-	
+		for rs in db_session.query(report_strings).filter(report_strings.lang_id == lang_id, report_strings.report_id == instance.id).all():
+			deftempl = rs.default_template
+		report_list.append({'id':instance.id, 'name':instance.report_name, 'issues': issue_sum, 'naming_issue': iss_report_names, 'parameters_issue': iss_param_names, 'templates_issue': iss_def_templ_names, 'default_template': deftempl})
 	return report_list
 
 
