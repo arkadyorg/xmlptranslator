@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import shutil
 import os
 from dblogic import report_dir_translist, language_code_by_id
