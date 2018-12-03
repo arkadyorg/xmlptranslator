@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from dblogic import param_translation_list, template_translation_list
 import shutil
 import os

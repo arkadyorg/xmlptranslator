@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import xml.etree.ElementTree as ET  
 
 def templates_list(file_pointer):

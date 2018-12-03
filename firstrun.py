@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # First run script
 import os
 from filelogic import report_reindex_igniter, template_reindex_igniter, parameters_reindex_igniter

@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from db import db_session, Reports, Templates, Parameters, Languages
 from dblogic import reports_name_strings_reindex, parameters_lable_strings_reindex, templates_lable_strings_reindex
 from datetime import datetime

@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from dblogic import dictionary_writer, dictionary_report_naming_miner, dictionary_report_parameters_miner, dictionary_report_name_getter, update_report_local_name, dictionary_report_parameters_getter, update_param_local_name
 
 def dictionary_refresh(lang_id):
