@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from sqlalchemy import (
                         create_engine, Column, Integer, String, Text, DateTime,
                         ForeignKey, TIMESTAMP, update, and_)
@@ -115,6 +118,7 @@ class dictionary(Base):
     datatype = Column(Integer) # 1 Report name / 2 parameters / 3 Templates / 4 Deep / 5 Dir
     original = Column(String(254))
     translation = Column(String(254))
+    lock = Column(String(50))
     created = Column(TIMESTAMP, nullable=False)
     updated = Column(TIMESTAMP, nullable=False)
 
