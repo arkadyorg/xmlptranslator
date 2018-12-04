@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from flask import Flask, render_template, request, redirect, url_for
 from dblogic import (
                     language_list, report_list, report_info_dtls_list,
@@ -8,8 +11,8 @@ from dblogic import (
                     language_code_by_id, delete_reports_data,
                     dictionary_reset, dictionary_data, dictionary_item_delete,
                     add_user)
-from fileconsistency import local_dir_naming
-from filelogic import xdo_local_translate_out_copy, tmpl_local_out_copy, report_reindex_igniter, template_reindex_igniter, parameters_reindex_igniter
+from fileconsistency import local_dir_naming, base_templates_extract_dir_naming
+from filelogic import xdo_local_translate_out_copy, tmpl_local_out_copy, report_reindex_igniter, template_reindex_igniter, parameters_reindex_igniter, lang_preexport_out_copy
 from dictionary import dictionary_refresh, report_names_autotranslate, report_parameters_autotranslate
 from dbconsistency import report_naming, parameters_lang_naming, templates_lang_naming
 import os
@@ -146,6 +149,15 @@ def post_translate():
     return redirect(
                     url_for(
                             'reports_by_lang', lang_code=lang_code))
+
+@app.route("/lang_preexport", methods=['POST'])
+def post_preexport():
+    base_lang = request.form.get('base_lang')
+    pre_lang = request.form.get('pre_lang')
+    base_templates_extract_dir_naming(base_lang, pre_lang)
+    lang_preexport_out_copy(base_lang, pre_lang)
+    dictionary = dictionary_data()
+    return render_template('config.html', dictionary=dictionary)  
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
