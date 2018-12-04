@@ -1,7 +1,10 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import os, fnmatch, collections 
-from dblogic import report_reindex, report_filepointer_select, template_reindex, parameters_reindex, report_dir_translist, language_code_by_id, template_dir_translist, one_report_dir_translist
+from dblogic import report_reindex, report_filepointer_select, template_reindex, parameters_reindex, report_dir_translist, language_code_by_id, template_dir_translist, one_report_dir_translist, language_id_by_code
 from xmlgetter import template_lister, parameters_lister, default_template
-from fileconsistency import file_copy
+from fileconsistency import file_copy, file_pe_rename
 import settings
 from xmlupdater import xdo_copy_translate
 
@@ -63,3 +66,17 @@ def xdo_local_translate_out_copy(report_id, lang_id):
 		end_dir = report['original_dir'].replace(report['original_name'], report['local_name'])
 		final_dir = end_dir.replace(original_dir, target_dir + lang_code + '/' )
 		xdo_copy_translate(report_id, lang_code, report['original_dir'], (report['original_name']+'.xdo'), final_dir, (report['local_name']+'.xdo'))
+
+def lang_preexport_out_copy(base_lang, pre_lang):
+	target_dir = settings.prelang_dir
+	original_dir = settings.original_dir
+	lang_id = language_id_by_code(base_lang)
+	raw_data = template_dir_translist(lang_id)
+	for report in raw_data:
+		if (report['templ_lang']) == base_lang:
+			end_dir = report['original_dir'].replace(report['report_original_name'], report['report_local_name'])   
+			final_dir = end_dir.replace(original_dir, target_dir + pre_lang + '/' )
+			file_copy(report['original_dir'], (report['original_file']), final_dir, (report['local_file']))
+			file_pe_rename(final_dir, (report['local_file']), base_lang, pre_lang)
+		else:
+			pass
