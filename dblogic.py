@@ -241,7 +241,7 @@ def template_dir_translist(lang_id):
 	files_data = []
 	qa=db_session.query(Reports, report_strings, Templates).filter(Reports.id == report_strings.report_id, report_strings.lang_id == lang_id, report_strings.local_name != None, Reports.id == Templates.report_id).all()
 	for reports in qa:
-		files_data.append({'report_id' : reports.Reports.id, 'report_original_name' : reports.Reports.report_name, 'report_local_name': reports.report_strings.local_name, 'original_dir' : reports.Reports.report_dir, 'original_file': reports.Templates.template_url, 'local_file': reports.Templates.template_url})
+		files_data.append({'report_id' : reports.Reports.id, 'report_original_name' : reports.Reports.report_name, 'report_local_name': reports.report_strings.local_name, 'original_dir' : reports.Reports.report_dir, 'original_file': reports.Templates.template_url, 'local_file': reports.Templates.template_url, 'templ_lang': reports.Templates.template_lang})
 
 	return files_data
 
